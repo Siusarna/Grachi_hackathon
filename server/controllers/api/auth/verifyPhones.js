@@ -1,7 +1,5 @@
 const mongoose = require('mongoose');
-const jwt = require('jsonwebtoken');
 const rp = require('request-promise');
-const config = require('../../../config/default');
 const {readOneDocFromDb, updateOneDocInDb} = require('../../../db/index');
 require('../../../models/index');
 
@@ -33,14 +31,9 @@ const verifyPhonesFirstStep = async (req, res) => {
 
 const verifyPhonesSecondStep = async (req, res) => {
   try {
-    const {secretKey} = req.body;
+    const {phones, secretKey} = req.body;
 
-    const accessToken = req.cookies.accessToken || req.local.accessToken;
-    if (!accessToken) {
-      return res.status(400).json({message: 'Unauthorized, please log in again'});
-    }
-    const payload = jwt.verify(accessToken, config.jwt.secret);
-    const user = await readOneDocFromDb(User, {_id: payload.userId});
+    const user = await readOneDocFromDb(User, {phones});
 
     if (secretKey !== user.secretKeyForVerifyPhones) {
       return res.status(400).json({message: 'Incorrect secret key, pleas try again'});
