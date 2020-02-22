@@ -1,7 +1,6 @@
 const express = require('express');
 const config = require('./config/default');
 const {createConnection} = require('./db/index');
-
 const app = express();
 app.use(express.json());
 require('./routers/index')(app);
@@ -17,5 +16,6 @@ const start = async () => {
     process.exit(1);
   }
 };
+
 
 start();
