@@ -4,23 +4,12 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "server": "nodemon ./server/app.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Siusarna, Zakkaray, Roflantohan",
   "license": "ISC",
   "dependencies": {
-    "bcryptjs": "^2.4.3",
-    "cookie-parser": "^1.4.4",
     "express": "^4.17.1",
-    "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.9.2",
-    "request": "^2.88.2",
-    "request-promise": "^4.2.5",
-    "uuid": "^3.4.0",
-    "validator": "^12.2.0"
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.2"
+    "mongoose": "^5.9.2"
   }
 }
