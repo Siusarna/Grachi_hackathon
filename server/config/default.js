@@ -1,6 +1,7 @@
 module.exports = {
   port: 3000,
   mongoUri: 'mongodb+srv://Siusarna:Rz4KOQ5cyAFYBL1K@cluster0-e51fg.mongodb.net/test?retryWrites=true&w=majority',
+  geolocationRadius: 30,
   jwt: {
     secret: 'Siusarna',
     tokens: {

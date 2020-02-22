@@ -13,12 +13,9 @@ function getRandomInt (min, max) {
 
 const verifyPhonesFirstStep = async (req, res) => {
   try {
-    const accessToken = req.cookies.accessToken || req.local.accessToken;
-    if (!accessToken) {
-      return res.status(400).json({message: 'Unauthorized, please log in again'});
-    }
-    const payload = jwt.verify(accessToken, config.jwt.secret);
-    const user = await readOneDocFromDb(User, {_id: payload.userId});
+    const {phones} = req.body;
+
+    const user = await readOneDocFromDb(User, {phones});
     const secretKeyForVerifyPhones = getRandomInt(10000, 99999);
     await updateOneDocInDb(User, user._id, secretKeyForVerifyPhones);
     const messageForSecretKey = `Щоб завершити реєстрацію використовуйте код: ${secretKeyForVerifyPhones}`;
