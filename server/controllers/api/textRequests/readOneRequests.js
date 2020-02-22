@@ -1,4 +1,4 @@
-module.exports = async (req, res) => {
+const readOneRequest = async (req,res) => {
   try {
     return res.status(200)
       .json({ message: 'Hello World' });
@@ -6,4 +6,8 @@ module.exports = async (req, res) => {
     return res.status(500)
       .json({ message: 'Something went wrong' });
   }
+};
+
+module.exports =  {
+  readOneRequest
 };
