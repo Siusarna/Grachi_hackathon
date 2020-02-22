@@ -50,6 +50,9 @@ const UserSchema = new mongoose.Schema({
   secretKeyForVerifyPhones: {
     type: String,
   },
+  secretKeyForResetPassword: {
+    type:String,
+  }
 });
 
 const userModel = mongoose.model('User', UserSchema);

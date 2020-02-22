@@ -48,7 +48,7 @@ const register = async (req, res) => {
     }
 
     const hashedPassword = hashPass(password);
-    await createDocInDb(User, {firstName, lastName, fatherName, phones, hashedPassword, isActive: false});
+    await createDocInDb(User, {firstName, lastName, fatherName, phones, password:hashedPassword, isActive: false});
     res.status(201).json({message: 'Registration was successful'});
   } catch (e) {
     res.status(500).json({message: 'Something went wrong'});
