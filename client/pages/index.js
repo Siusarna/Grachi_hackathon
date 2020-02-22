@@ -1,10 +1,6 @@
 import Head from "next/head";
 import Link from "next/link";
 import { useState } from "react";
-import "@fortawesome/fontawesome-free/css/all.min.css";
-import "bootstrap-css-only/css/bootstrap.min.css";
-import "mdbreact/dist/css/mdb.css";
-import "../stylesheets/intro.css";
 import { MDBContainer, MDBRow, MDBCol, MDBBtn } from "mdbreact";
 import ModalRegister from '../components/register.js'
 const Home = () => {

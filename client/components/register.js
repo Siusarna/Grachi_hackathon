@@ -24,21 +24,18 @@ const ModalRegister = ({ signup, userInformationAdded }) => {
       acc[label.attributes[0].value] = input.value;
       return acc;
     }, {});
+    console.log(JSON.stringify(data));
     if (!phoneComp) {
     userInformationAdded(data);
     setPhoneComp(true);
     await fetch("/api/auth/register", {
       method: "POST", // *GET, POST, PUT, DELETE, etc.
-      mode: "no-cors", // no-cors, cors, *same-origin
-      cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
       headers: {
         "Content-Type": "application/json"
       },
-      redirect: "follow", // manual, *follow, error
-      referrer: "no-referrer", // no-referrer, *client
       body: JSON.stringify(data) // тип данных в body должен соответвовать значению заголовка "Content-Type"
-    }).then(resp => resp);
-    await fetch('api/auth/verifyPhoneFirstStep',{
+    }).then(resp => console.log(resp));
+    await fetch('/api/auth/verifyPhoneFirstStep',{
         method: "POST", // *GET, POST, PUT, DELETE, etc.
         mode: "no-cors", // no-cors, cors, *same-origin
         cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
