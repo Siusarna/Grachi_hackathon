@@ -15,8 +15,10 @@ import {
   MDBIcon
 } from "mdbreact";
 import '../stylesheets/navbar.css'
+import {connect} from 'react-redux';
+import {createRequest} from '../redux/action'
 
-const NavBar = () => {
+const NavBar = ({createRequest}) => {
   const [isOpen, setIsOpen] = useState("false");
 
   const toggleCollapse = () => {
@@ -54,7 +56,7 @@ const NavBar = () => {
               </MDBDropdownToggle>
               <MDBDropdownMenu className="dropdown-default to-right">
                 <MDBDropdownItem href="#!">Мій кабінет</MDBDropdownItem>
-                <MDBDropdownItem href="#!">Запит про допомогу</MDBDropdownItem>
+                <MDBDropdownItem href="#!" onClick={createRequest}>Запит про допомогу</MDBDropdownItem>
                 <MDBDropdownItem href="#!">
                   Стати автором поради
                 </MDBDropdownItem>
@@ -67,4 +69,8 @@ const NavBar = () => {
   );
 };
 
-export default NavBar;
+const mapDispatchToProps = {
+    createRequest
+}
+
+export default connect(null, mapDispatchToProps)(NavBar);
