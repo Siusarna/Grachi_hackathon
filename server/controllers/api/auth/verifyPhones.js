@@ -15,15 +15,20 @@ const verifyPhonesFirstStep = async (req, res) => {
 
     const user = await readOneDocFromDb(User, {phones});
     const secretKeyForVerifyPhones = getRandomInt(10000, 99999);
-    await updateOneDocInDb(User, user._id, secretKeyForVerifyPhones);
+    await updateOneDocInDb(User, {_id: user._id}, {secretKeyForVerifyPhones});
     const messageForSecretKey = `Щоб завершити реєстрацію використовуйте код: ${secretKeyForVerifyPhones}`;
     const baseUri = 'https://semysms.net/api/3/sms.php?';
-    const uriParameters = `token=485f76945b444ecddc2f9bd72530b533&device=1&phone=+380${user.phones}&msg=${messageForSecretKey}`;
-    const uriForRequest = `${baseUri}${uriParameters}`;
-    await rp(uriForRequest);
+    const objForForm = {
+      phone: `+38${phones}`,
+      msg: messageForSecretKey,
+      token: '5b4489753af0ed45498918dd626bcd26',
+      device: '201617',
+    };
+    await rp.post(baseUri).form(objForForm);
 
     return res.json({message: 'Ok'});
   } catch (e) {
+    console.log(e);
     return res.status(500)
       .json({message: 'Something went wrong'});
   }
@@ -32,7 +37,6 @@ const verifyPhonesFirstStep = async (req, res) => {
 const verifyPhonesSecondStep = async (req, res) => {
   try {
     const {phones, secretKey} = req.body;
-
     const user = await readOneDocFromDb(User, {phones});
 
     if (secretKey !== user.secretKeyForVerifyPhones) {

@@ -29,9 +29,10 @@ const UserSchema = new mongoose.Schema({
     max: 11,
   },
   achievements: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: [mongoose.Schema.Types.ObjectId],
     ref: 'Achievements',
     require: true,
+    default: [],
   },
   inBlackList: {
     type: Boolean,
@@ -51,8 +52,8 @@ const UserSchema = new mongoose.Schema({
     type: String,
   },
   secretKeyForResetPassword: {
-    type:String,
-  }
+    type: String,
+  },
 });
 
 const userModel = mongoose.model('User', UserSchema);

@@ -1,19 +1,19 @@
-import React, { Component, useState } from "react";
+import React, {Component, useState} from 'react';
 import {
   MDBContainer,
   MDBBtn,
   MDBModal,
   MDBModalBody,
   MDBModalHeader,
-  MDBModalFooter
-} from "mdbreact";
-import "../stylesheets/intro.css";
-import RegisterForms from "./registerForms";
-import PhoneApprove from "./phoneApprove";
-import { connect } from "react-redux";
-import { userInformationAdded } from "../redux/action";
+  MDBModalFooter,
+} from 'mdbreact';
+import '../stylesheets/intro.css';
+import RegisterForms from './registerForms';
+import PhoneApprove from './phoneApprove';
+import {connect} from 'react-redux';
+import {userInformationAdded} from '../redux/action';
 
-const ModalRegister = ({ signup, userInformationAdded }) => {
+const ModalRegister = ({signup, userInformationAdded}) => {
   const [phoneComp, setPhoneComp] = useState(false);
   const [modal, setModal] = useState(true);
   const handleSubmit = async e => {
@@ -24,7 +24,6 @@ const ModalRegister = ({ signup, userInformationAdded }) => {
       acc[label.attributes[0].value] = input.value;
       return acc;
     }, {});
-    console.log(JSON.stringify(data));
     if (!phoneComp) {
       userInformationAdded(data);
       setPhoneComp(true);
@@ -40,7 +39,14 @@ const ModalRegister = ({ signup, userInformationAdded }) => {
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify(data.phones) // тип данных в body должен соответвовать значению заголовка "Content-Type"
+        body: JSON.stringify(data) // тип данных в body должен соответвовать значению заголовка "Content-Type"
+      }).then(resp => console.log(resp));
+      await fetch('/api/auth/verifyPhoneFirstStep', {
+        method: 'POST', // *GET, POST, PUT, DELETE, etc.
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({phones: data.phones}), // тип данных в body должен соответвовать значению заголовка "Content-Type"
       }).then(resp => resp);
     } else {
       console.log(signup);
@@ -89,12 +95,12 @@ const ModalRegister = ({ signup, userInformationAdded }) => {
 
 const mapStateToProps = state => {
   return {
-    signup: state.signup
+    signup: state.signup,
   };
 };
 
 const mapDispatchToProps = {
-  userInformationAdded
+  userInformationAdded,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ModalRegister);

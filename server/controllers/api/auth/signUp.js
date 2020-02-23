@@ -51,7 +51,7 @@ const register = async (req, res) => {
     return res.status(201).json({message: 'Registration was successful'});
   } catch (e) {
     console.log(e);
-    res.status(500).json({message: 'Something went wrong'});
+    return res.status(500).json({message: 'Something went wrong'});
   }
 };
 

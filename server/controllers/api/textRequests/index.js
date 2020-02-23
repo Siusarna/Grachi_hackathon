@@ -1,5 +1,7 @@
-const readRequest = require('./readRequests');
+const {createRequest} = require('./createRequest');
+const {readAllRequest} = require('./readAllRequest');
 
 module.exports = {
-  readRequest,
+  createRequest,
+  readAllRequest
 };
