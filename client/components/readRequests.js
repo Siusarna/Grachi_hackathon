@@ -22,15 +22,22 @@ const AnyReactComponent = ({ text }) => (
 const readRequests =  () => {
     const [data, setData] = useState([])
     useEffect(async() => { 
-        const fetchData =  async() => { await fetch('http://localhost:3001/api/requests/readRequests').then(resp =>  {
+      const geo = navigator.geolocation.getCurrentPosition();
+      await fetch("/api/auth/register", {
+        method: "POST", // *GET, POST, PUT, DELETE, etc.
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(geo) // тип данных в body должен соответвовать значению заголовка "Content-Type"
+      }).then(resp =>  {
                 if(resp.ok)  {
                     const realData = resp.json();
                     const geolocation = JSON.parse(realData.geolocation);
                     return setData({...realData, geolocation: {lat: geolocation.latitude, lng: geolocation.longitude} })
                 }
             })
-          }
-          fetchData();
+            fetchData();
+
         })
         const defaultProps = {
           center: {...data.geolocation},
