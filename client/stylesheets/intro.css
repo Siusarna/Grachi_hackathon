@@ -30,3 +30,11 @@ body {
 .auth-font {
     font-size: 24px
 }
+
+.height-card-fix {
+    height: 20rem;
+}
+
+.map-height {
+    height: 55% !important;
+}
