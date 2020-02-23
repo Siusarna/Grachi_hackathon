@@ -6,9 +6,9 @@ const {
     createConnection,
     readDocsFromDb,
     createDocInDb,
-} = require('../db/index');
+} = require('../../../db/index');
 
-require('../models/index');
+require('../../../models/index');
 
 const Advises = mongoose.model('Advises');
 const Create_Adv = async(req, res) => {

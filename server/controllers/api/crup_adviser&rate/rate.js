@@ -6,9 +6,9 @@ const {
     updateOneDocInDb,
     createDocInDb,
     readOneDocFromDb
-} = require('../db/index');
+} = require('../../../db/index');
 
-require('../models/index');
+require('../../../models/index');
 
 const Rate = mongoose.model('Rate');
 const Users = mongoose.model('User'); 
