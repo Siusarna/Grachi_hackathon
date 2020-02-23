@@ -15,7 +15,7 @@ const createRequest = async (req, res) => {
     }
     const payload = jwt.verify(accessToken, config.jwt.secret);
     geolocation = JSON.stringify(geolocation);
-    await createDocInDb(Requests, {description, geolocation, waitingTime, isActive: true, userId: payload.userId});
+    await createDocInDb(Requests, {description, geolocation, waitingTime, isActive: true, user: payload.userId});
 
     return res.status(201).json({message: 'Request successful created'});
   } catch (e) {
