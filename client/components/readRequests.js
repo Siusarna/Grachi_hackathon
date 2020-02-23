@@ -22,52 +22,41 @@ const AnyReactComponent = ({ text }) => (
 const readRequests =  () => {
     const [data, setData] = useState([])
     useEffect(async() => { 
-      const geo = navigator.geolocation.getCurrentPosition();
-      await fetch("/api/auth/register", {
+      const geo = navigator.geolocation.getCurrentPosition(async ({latitude, longitude}) => { 
+        await fetch("/api/auth/register", {
         method: "POST", // *GET, POST, PUT, DELETE, etc.
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify(geo) // тип данных в body должен соответвовать значению заголовка "Content-Type"
+        body: JSON.stringify({latitude, longitude}) // тип данных в body должен соответвовать значению заголовка "Content-Type"
       }).then(resp =>  {
                 if(resp.ok)  {
                     const realData = resp.json();
                     const geolocation = JSON.parse(realData.geolocation);
                     return setData({...realData, geolocation: {lat: geolocation.latitude, lng: geolocation.longitude} })
                 }
-            })
-            fetchData();
+            })});
 
         })
+
         const defaultProps = {
-          center: {...data.geolocation},
+          center: {lat: 10, lng: 10},
           zoom: 14
         };
         return (
-        <>{[data].map(elem => (<MDBRow className='mt-3'>
+        <>{data ? [...data].map(elem => {
+          console.log(elem)
+          return (<MDBRow className='mt-3'>
   <MDBCard className="w-100 height-card-fix mb-4 text-center">
     <MDBCardBody>
-      <MDBCardTitle>`${elem.user.firstName} ${elem.user.fatherName}`</MDBCardTitle>
+      <MDBCardTitle>{`${elem.user.firstName} ${elem.user.lastName}`}</MDBCardTitle>
       <MDBCardText>
-        {`${elem.description}`}
+        {`${elem.description ? elem.description : null}`}
       </MDBCardText>
-      <div className="map-height">
-    <GoogleMapReact
-        defaultCenter={defaultProps.center}
-        defaultZoom={defaultProps.zoom}
-        bootstrapURLKeys={{key: 'AIzaSyAkTY8iQ9hM7KsjZg-G5CbUZloXzHorFaE'}}
-      >
-        <AnyReactComponent 
-          lat={defaultProps.center.lat} 
-          lng={defaultProps.center.lng} 
-          text={'Help here'} 
-        />
-      </GoogleMapReact>
-      </div>
       <MDBBtn color="primary">Допомогти</MDBBtn>
     </MDBCardBody>
   </MDBCard>
-        </MDBRow>))}</>
+        </MDBRow>)}) : null}</>
         )
 }
 
