@@ -6,7 +6,6 @@ require('../../../models/index');
 const Requests = mongoose.model('Requests');
 
 function measure (userLat, userLon, dbLat, dbLon) {  // generally used geo measurement function
-  console.log(userLat, userLon, dbLat, dbLon);
   const R = 6378.137; // Radius of earth in KM
   const dLat = dbLat * Math.PI / 180 - userLat * Math.PI / 180;
   const dLon = dbLon * Math.PI / 180 - userLon * Math.PI / 180;
@@ -22,8 +21,7 @@ const readAllRequest = async (req, res) => {
   try {
     const {latitude, longitude} = req.body;
 
-    const requests = await readDocsFromDb(Requests,{});
-
+    const requests = await readDocsFromDb(Requests,{}, 'user');
     const filteredList = requests.filter(el => {
       const parsedElement = JSON.parse(el.geolocation);
       return measure(latitude, longitude, Number(parsedElement.latitude), Number(parsedElement.longitude));
