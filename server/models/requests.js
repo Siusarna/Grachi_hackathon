@@ -20,6 +20,10 @@ const RequestsSchema = new mongoose.Schema({
     require: true,
     default: false,
   },
+  waitingTime: {
+    type: String,
+    require: true,
+  },
   created: {
     type: Date,
     default: Date.now(),

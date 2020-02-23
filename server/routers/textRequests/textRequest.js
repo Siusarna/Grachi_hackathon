@@ -1,5 +1,6 @@
-const {readRequest} = require('../../controllers/api/textRequests/index');
+const textRequests = require('../../controllers/api/textRequests/index');
 
 module.exports = (app) => {
-  app.get('/api/requests', readRequest);
+  app.post('/api/requests/readRequests', textRequests.readAllRequest);
+  app.post('/api/requests/createRequest', textRequests.createRequest);
 };
