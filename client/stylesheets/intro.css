@@ -1,0 +1,32 @@
+.full-wrap {
+    height: 100vh;
+}
+
+.half-wrap {
+    height: 50vh;
+}
+
+.full-width-jumbo {
+    width: 100vw;
+}
+
+body {
+    height: 100vh;
+}
+
+.content-to-center {
+    justify-content: center;
+    align-content: center;
+}
+
+.bg-blue {
+    background-color: #3e79ff;
+}
+
+.fixed-btn {
+    width: 16rem;
+}
+
+.auth-font {
+    font-size: 24px
+}

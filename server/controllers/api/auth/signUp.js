@@ -37,7 +37,7 @@ const register = async (req, res) => {
 
     if (validatedInput) {
       console.log(validatedInput);
-      return res.status(400).json(validatedInput);
+     return res.status(400).json(validatedInput);
     }
 
     const candidate = await User.findOne({phones});
@@ -47,10 +47,11 @@ const register = async (req, res) => {
     }
 
     const hashedPassword = hashPass(password);
-    await createDocInDb(User, {firstName, lastName, fatherName, phones, password: hashedPassword, isActive: false});
+    await createDocInDb(User, {firstName, lastName, fatherName, phones, password:hashedPassword, isActive: false});
     return res.status(201).json({message: 'Registration was successful'});
   } catch (e) {
-    return res.status(500).json({message: 'Something went wrong'});
+    console.log(e);
+    res.status(500).json({message: 'Something went wrong'});
   }
 };
 
